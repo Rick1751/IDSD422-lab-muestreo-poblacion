@@ -8,7 +8,7 @@
 # Uso (desde la raíz del repositorio):  python scripts/muestreo.py
 
 import pandas as pd
-
+# Hola
 pd.set_option("display.width", 100)
 
 
