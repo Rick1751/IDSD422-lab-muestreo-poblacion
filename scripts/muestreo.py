@@ -16,6 +16,9 @@ def reporte(nombre, muestra, parametro):
 
     Composición por ciudad: es la pista que delata un sesgo de selección.
     """
+    if muestra is None:
+        print(f"[{nombre}] pendiente de completar (TODO)")
+        return
     n = len(muestra)
     media = muestra["ingresos_mensuales"].mean()
     comp = muestra["ciudad"].value_counts().to_dict()
@@ -90,4 +93,4 @@ if muestra_conv is not None and muestra_aas is not None and muestra_est is not N
     print("      tomada con un solo estudio?")
     print("  P5: ¿cuándo usarías cada diseño? (piloto · subgrupos · conclusión)")
 else:
-    print("No se pudo construir la tabla comparativa.")
+    print("Completa los TODO 1 a 4 para ver la tabla comparativa.")

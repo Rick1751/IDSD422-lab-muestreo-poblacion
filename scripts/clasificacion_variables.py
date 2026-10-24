@@ -28,9 +28,6 @@ print()
 print("Tipos inferidos (dtype):")
 print(clientes.dtypes)
 print()
-print("Cantidad de valores únicos por columna (nunique):")
-print(clientes.nunique())
-print()
 
 # ---------------------------------------------------------------------------
 # 3. Valores únicos — ¿cuántas categorías hay y cuáles son?
