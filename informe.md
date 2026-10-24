@@ -1,7 +1,7 @@
 # Informe — Clasificación de variables y población vs. muestra
 
 **Para:** Gerencia de RetailAndina S.A. · **De:** Equipo de Business Intelligence
-**Fecha:** ___/___/2026 · **Asunto:** Base de fidelización: tipos de variables y estimación por muestreo
+**Fecha:** 23/10/2026 · **Asunto:** Base de fidelización: tipos de variables y estimación por muestreo
 
 ---
 
