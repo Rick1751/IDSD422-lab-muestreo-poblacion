@@ -28,18 +28,17 @@ print()
 print("Tipos inferidos (dtype):")
 print(clientes.dtypes)
 print()
-# TODO 1: ¿qué columnas llegan como número y cuáles como texto? Anótalo para el
-#         informe. Ojo con satisfaccion: llega como número y es ordinal
-#         ("4 no es el doble de 2") — la justificación va en el informe.
+print("Cantidad de valores únicos por columna (nunique):")
+print(clientes.nunique())
+print()
 
 # ---------------------------------------------------------------------------
 # 3. Valores únicos — ¿cuántas categorías hay y cuáles son?
 # ---------------------------------------------------------------------------
-# TODO 2: completa el bucle para imprimir, por columna, cuántos valores únicos
-#         hay y cuáles son. Pista: for columna in clientes.columns: ...  con
-#         clientes[columna].unique() y len(). ¿Cuántas categorías tiene genero?
-# for columna in clientes.columns:
-#     ...
+print("Valores únicos por columna (antes de ordenar categorías):")
+for columna in clientes.columns:
+    print(f"  {columna}: {clientes[columna].nunique()} valores -> "
+          f"{clientes[columna].unique().tolist()}")
 print()
 
 # ---------------------------------------------------------------------------
@@ -48,29 +47,56 @@ print()
 # Una ordinal se guarda como texto (o como número) y su orden natural se pierde:
 # alfabéticamente "Posgrado" iría antes que "Primaria", que no tiene sentido.
 #
-# TODO 3: convierte nivel_educacion a categoría ordenada.
-#         Pista: astype(pd.CategoricalDtype(categories=[...], ordered=True)).
-#         Comprueba con .min(): debe devolver "Primaria".
-# TODO 4: haz lo mismo con satisfaccion (escala 1–5 como etiquetas ordenadas).
-#         Prueba extra: ¿qué pasa si en la lista de categorías escribes
-#         "Postgrado" (con t) para nivel_educacion? Cuenta los faltantes con
-#         .isna().sum() — la trampa del typo es silenciosa.
+niveles_educacion = ["Primaria", "Secundaria", "Universidad", "Posgrado"]
+tipo_educacion = pd.CategoricalDtype(
+    categories=niveles_educacion, ordered=True
+)
+clientes["nivel_educacion"] = clientes["nivel_educacion"].astype(tipo_educacion)
+
+niveles_satisfaccion = [
+    int(nivel) for nivel in sorted(clientes["satisfaccion"].unique())
+]
+tipo_satisfaccion = pd.CategoricalDtype(
+    categories=niveles_satisfaccion, ordered=True
+)
+clientes["satisfaccion"] = clientes["satisfaccion"].astype(tipo_satisfaccion)
+
+print("Orden declarado para nivel_educacion:")
+print(f"  niveles: {niveles_educacion}")
+print(f"  mínimo: {clientes['nivel_educacion'].min()}")
+print(f"  máximo: {clientes['nivel_educacion'].max()}")
+print(f"  dtype: {clientes['nivel_educacion'].dtype}")
+print("Orden declarado para satisfaccion:")
+print(f"  niveles: {niveles_satisfaccion}")
+print(f"  mínimo: {clientes['satisfaccion'].min()}")
+print(f"  máximo: {clientes['satisfaccion'].max()}")
+print(f"  dtype: {clientes['satisfaccion'].dtype}")
 print()
 
 # ---------------------------------------------------------------------------
 # 5. Resumen de la clasificación (para el informe)
 # ---------------------------------------------------------------------------
-# TODO 5: completa el resumen con el tipo de cada variable (el criterio que
-#         justifica cada clasificación va en el informe).
+# cliente_id: nominal, porque identifica clientes y no tiene orden ni promedio.
+# edad: discreta en estos datos, porque se registra en años enteros; la mitad
+#       de un año no es una categoría observada para esta variable.
+# numero_hijos: discreta, porque es un conteo entero y no tiene sentido contar
+#               una fracción de hijo.
+# genero: nominal, porque sus categorías no tienen un orden natural.
+# nivel_educacion: ordinal, porque sus categorías sí tienen un orden educativo.
+# ciudad: nominal, porque las ciudades son nombres sin jerarquía.
+# ingresos_mensuales: continua, porque el ingreso puede tomar valores con
+#                      centavos y tiene sentido comparar promedios.
+# satisfaccion: ordinal, aunque llegue como número; sus valores ordenan niveles
+#               de satisfacción, pero 4 no significa el doble que 2.
 clasificacion = {
-    "cliente_id": "…",
-    "edad": "…",
-    "numero_hijos": "…",
-    "genero": "…",
-    "nivel_educacion": "…",
-    "ciudad": "…",
-    "ingresos_mensuales": "…",
-    "satisfaccion": "…",
+    "cliente_id": "categórica nominal",
+    "edad": "numérica discreta",
+    "numero_hijos": "numérica discreta",
+    "genero": "categórica nominal",
+    "nivel_educacion": "categórica ordinal",
+    "ciudad": "categórica nominal",
+    "ingresos_mensuales": "numérica continua",
+    "satisfaccion": "categórica ordinal",
 }
 print("Resumen de la clasificación (para el informe):")
 for variable, tipo in clasificacion.items():
