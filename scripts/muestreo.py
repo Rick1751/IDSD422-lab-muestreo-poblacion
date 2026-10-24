@@ -33,7 +33,7 @@ def reporte(nombre, muestra, parametro):
 # La base de fidelización completa es la población: 400 clientes. El parámetro
 # es el ingreso mensual promedio real (solo calculable porque la población es
 # pequeña y accesible: sirve de espejo para juzgar las muestras).
-poblacion = pd.read_csv("data/clientes_400.csv")
+poblacion = pd.read_csv("/home/ricardo/Documentos/EPN/03_Academico_4/Estadistica/Codigo/IDSD422-lab-muestreo-poblacion/data/clientes_400.csv")
 parametro = poblacion["ingresos_mensuales"].mean()
 print(f"Población: {poblacion.shape[0]} clientes × {poblacion.shape[1]} columnas")
 print(f"Parámetro poblacional — ingreso medio: {parametro:.2f} USD")

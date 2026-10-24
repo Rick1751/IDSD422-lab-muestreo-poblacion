@@ -11,7 +11,7 @@
 
 import pandas as pd
 
-clientes = pd.read_csv("data/clientes.csv")
+clientes = pd.read_csv("/home/ricardo/Documentos/EPN/03_Academico_4/Estadistica/Codigo/IDSD422-lab-muestreo-poblacion/data/clientes.csv")
 
 # ---------------------------------------------------------------------------
 # 1. Estructura del archivo
